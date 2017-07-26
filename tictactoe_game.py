@@ -30,8 +30,13 @@ class tictactoe_game :
     # def check_turn() :
 
 
-    # def won() :
 
+    def won(board) :
+        for i in range(7) :
+            if (i%3 == 0 and board[i] == board[i+1] == board[i+2])  :
+                return True
+        for i in range(3) :
+            if ()
 
     # def tied() :
 
