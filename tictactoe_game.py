@@ -15,13 +15,19 @@ def choose_marker() :
     player2 = "O" if player1 == "X" else "X"
     return [player1, player2]
 
-def ask_for_position() :
-    return int(input("Choose a position ranging from 1 to 9: "))
+def ask_for_position(board) :
+    position = int(input("Choose a position ranging from 1 to 9: "))
+    if not check_position(board, position) :
+        return ask_for_position(board)
+
+    return position
 
 def check_position(board, position):
     if board[position-1] != " " or position > 9:
             print("You entered an invalid position.")
-            ask_for_position()
+            return False
+
+    return True
 
 def place_marker(board, player, position) :
     board[position-1] = player
@@ -97,8 +103,7 @@ def game() :
     count_player = 0
 
     while not check_game_over(board) :
-        position = ask_for_position()
-        check_position(board, position)
+        position = ask_for_position(board)
         board = place_marker(board, players[count_player%2], position)
         print_board(board)
         count_player += 1
