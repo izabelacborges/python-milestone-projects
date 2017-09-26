@@ -109,7 +109,7 @@ def game() :
         count_player += 1
 
     again = input("Do you wanna play again? y/n\n")
-    if again == "s" :
+    if again == "y" :
         game()
 
 
