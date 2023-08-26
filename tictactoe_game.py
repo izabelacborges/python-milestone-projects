@@ -15,12 +15,9 @@ def choose_marker() :
     player2 = "O" if player1 == "X" else "X"
     return [player1, player2]
 
-def ask_for_position(board) :
+def ask_for_position(board):
     position = int(input("Choose a position ranging from 1 to 9: "))
-    if not check_position(board, position) :
-        return ask_for_position(board)
-
-    return position
+    return position if check_position(board, position) else ask_for_position(board)
 
 def check_position(board, position):
     if board[position-1] != " " or position > 9:
@@ -49,31 +46,32 @@ def check_game_over(board) :
 
     return False
 
-def won(board) :
-    if crossed_line(board) or crossed_column(board) or crossed_diagonal(board) :
-        return True
-
-    return False
+def won(board):
+    return bool(
+        crossed_line(board) or crossed_column(board) or crossed_diagonal(board)
+    )
 
 def crossed_line(board):
-    for i in range(7) :
-        if i%3 == 0 :
-            if board[i] != " " and (board[i] == board[i+1] and board[i+1] == board[i+2]) :
+    for i in range(7):
+        if i%3 == 0:
+            if board[i] != " " and board[i] == board[i + 1] == board[i + 2]:
                 print("The player {pl} WON the game!".format(pl = board[i]))
                 return True
 
     return False
 
 def crossed_column(board):
-    for i in range(3) :
-        if  board[i] != " " and (board[i] == board[i+3] and board[i+3] == board[i+6]) :
+    for i in range(3):
+        if board[i] != " " and board[i] == board[i + 3] == board[i + 6]:
             print("The player {pl} WON the game!".format(pl = board[i]))
             return True
 
     return False
 
 def crossed_diagonal(board):
-    if (board[0] == board[4] and board[4] == board[8] or board[2] == board[4] and board[4] == board[6]) and board[4] != " " :
+    if (
+        board[0] == board[4] == board[8] or board[2] == board[4] == board[6]
+    ) and board[4] != " ":
         print("The player {pl} WON the game!".format(pl = board[i]))
         return True
 
